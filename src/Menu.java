@@ -4,10 +4,18 @@ public class Menu{
     private boolean exit= false;
     public Menu(){}
 
-    public void Menu_Interact(){
-
-        Show_First_Menu();
-        Choose_Main_Menu(Select_Option());
+    public void Menu_Interact()
+    {
+        try {
+            Show_First_Menu();
+            Choose_Main_Menu(Select_Option());
+        }
+        catch (Exception e)
+        {
+            System.out.println("Caracter invalido. Vuelve a ingresar un número...");
+            Show_First_Menu();
+            Choose_Main_Menu(Select_Option());
+        }
 
     }
 
@@ -32,6 +40,8 @@ public class Menu{
     {
         while (!exit)
         {
+            //En caso de que ingresen un caracter equivocado dentro de alguno de los menú
+            // vuelve a entrar a ese menu porque tiene guardada la primera opción que le pasas
             switch (option)
             {
                 case 1:
@@ -40,6 +50,8 @@ public class Menu{
                     break;
 
                 case 2:
+                    Show_People_Menu();
+                    Choose_People_Menu(Select_Option());
                     break;
 
                 case 3:
@@ -48,9 +60,13 @@ public class Menu{
                     break;
 
                 case 4:
+                    Show_Orders_Menu();
+                    Choose_Orders_Menu(Select_Option());
                     break;
 
                 case 5:
+                    Show_Stock_Menu();
+                    Choose_Stock_Menu(Select_Option());
                     break;
 
                 case 6:
@@ -132,5 +148,99 @@ public class Menu{
         }
     }
 
+    private void Show_People_Menu()
+    {
+        System.out.println("Ingrese a cual opción desea ingresar: ");
+        System.out.println("1) Clientes \n" +
+                "2) Proveedores \n" +
+                "3) Menu Principal \n" +
+                "4) Salir");
+    }
+
+    private void Choose_People_Menu(int option)
+    {
+        switch (option)
+        {
+            case 1:
+                break;
+
+            case 2:
+
+                break;
+
+            case 3:
+                Show_First_Menu();
+                Choose_Main_Menu(Select_Option());
+                break;
+
+            case 4:
+                System.exit(0);
+                break;
+
+            default:
+                System.out.println("El número " + option + " no es una opción válida. Volver a intentar..." );
+                break;
+        }
+    }
+
+    private void Show_Orders_Menu()
+    {
+        System.out.println("Ingrese a cual opción desea ingresar: ");
+        System.out.println("1) Pedidos \n" +
+                "2) Menu Principal \n" +
+                "3) Salir");
+    }
+
+    private void Choose_Orders_Menu(int option)
+    {
+        switch (option)
+        {
+            case 1:
+                break;
+
+            case 2:
+                Show_First_Menu();
+                Choose_Main_Menu(Select_Option());
+                break;
+
+            case 3:
+                System.exit(0);
+                break;
+
+            default:
+                System.out.println("El número " + option + " no es una opción válida. Volver a intentar..." );
+                break;
+        }
+    }
+
+    private void Show_Stock_Menu()
+    {
+        System.out.println("Ingrese a cual opción desea ingresar: ");
+        System.out.println("1) Stock \n" +
+                "2) Menu Principal \n" +
+                "3) Salir");
+    }
+
+    private void Choose_Stock_Menu(int option)
+    {
+        switch (option)
+        {
+            case 1:
+                break;
+
+            case 2:
+                Show_First_Menu();
+                Choose_Main_Menu(Select_Option());
+                break;
+
+            case 3:
+                System.exit(0);
+                break;
+
+            default:
+                System.out.println("El número " + option + " no es una opción válida. Volver a intentar..." );
+                break;
+        }
+    }
 
 }
