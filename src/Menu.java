@@ -1,6 +1,3 @@
-
-import java.io.IOException;
-import java.io.InterruptedIOException;
 import java.util.Scanner;
 
 public class Menu{
@@ -9,8 +6,8 @@ public class Menu{
 
     public void Menu_Interact(){
 
-        this.Show_First_Menu();
-        this.Choose(this.Select_Option());
+        Show_First_Menu();
+        Choose_Main_Menu(Select_Option());
 
     }
 
@@ -31,18 +28,23 @@ public class Menu{
         return option;
     }
 
-    private void Choose(int option){
+    private void Choose_Main_Menu(int option)
+    {
         while (!exit)
         {
             switch (option)
             {
                 case 1:
+                    Show_Product_Menu();
+                    Choose_Product_Menu(Select_Option());
                     break;
 
                 case 2:
                     break;
 
                 case 3:
+                    Show_Telas_Menu();
+                    Choose_Telas_Menu(Select_Option());
                     break;
 
                 case 4:
@@ -57,11 +59,76 @@ public class Menu{
                     break;
 
                 default:
-                    System.out.println("No ingresaste un número válido");
-                    this.Show_First_Menu();
-                    this.Choose(Select_Option());
+                    System.out.println("El número " + option + " no es una opción válida. Volver a intentar..." );
+                    Show_First_Menu();
+                    Choose_Main_Menu(Select_Option());
+                    break;
             }
 
+        }
+    }
+
+    private void Show_Product_Menu()
+    {
+        System.out.println("Ingrese el tipo de producto: ");
+        System.out.println("1) Accesorios \n" +
+                "2) Prendas \n" +
+                "3) Menu principal \n" +
+                "4) Salir \n");
+    }
+
+    private void Choose_Product_Menu(int option)
+    {
+        switch (option)
+        {
+            case 1:
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                Show_First_Menu();
+                Choose_Main_Menu(Select_Option());
+                break;
+
+            case 4:
+                System.exit(0);
+                break;
+
+            default:
+                System.out.println("El número " + option + " no es una opción válida. Volver a intentar..." );
+                break;
+        }
+    }
+
+    private void Show_Telas_Menu()
+    {
+        System.out.println("Ingrese a cual opción desea ingresar: ");
+        System.out.println("1) Telas \n" +
+                "2) Menu principal \n" +
+                "3) Salir \n" );
+    }
+
+    private void Choose_Telas_Menu(int option)
+    {
+        switch (option)
+        {
+            case 1:
+                break;
+
+            case 2:
+                Show_First_Menu();
+                Choose_Main_Menu(Select_Option());
+                break;
+
+            case 3:
+                System.exit(0);
+                break;
+
+            default:
+                System.out.println("El número " + option + " no es una opción válida. Volver a intentar..." );
+                break;
         }
     }
 
