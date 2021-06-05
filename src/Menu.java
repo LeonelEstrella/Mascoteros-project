@@ -6,17 +6,8 @@ public class Menu{
 
     public void Menu_Interact()
     {
-        try {
             Show_First_Menu();
             Choose_Main_Menu(Select_Option());
-        }
-        catch (Exception e)
-        {
-            System.out.println("Caracter invalido. Vuelve a ingresar un número...");
-            Show_First_Menu();
-            Choose_Main_Menu(Select_Option());
-        }
-
     }
 
     private void Show_First_Menu()
@@ -31,9 +22,19 @@ public class Menu{
     }
     private int  Select_Option()
     {
-        Scanner sc = new Scanner(System.in);
-        int option = sc.nextInt();
-        return option;
+        try
+        {
+            Scanner sc = new Scanner(System.in);
+            int option = sc.nextInt();
+            return option;
+        }
+        catch (Exception e)
+        {
+            System.out.println("Caracter invalido. Vuelve a ingresar un número...");
+            Show_First_Menu();
+            Choose_Main_Menu(Select_Option());
+            return 0;
+        }
     }
 
     private void Choose_Main_Menu(int option)
