@@ -56,8 +56,8 @@ public class Menu{
                     break;
 
                 case 3:
-                    Show_Telas_Menu();
-                    Choose_Telas_Menu(Select_Option());
+                    Show_Textiles_Menu();
+                    Choose_Textiles_Menu(Select_Option());
                     break;
 
                 case 4:
@@ -119,15 +119,15 @@ public class Menu{
         }
     }
 
-    private void Show_Telas_Menu()
+    private void Show_Textiles_Menu()
     {
         System.out.println("Ingrese a cual opción desea ingresar: ");
-        System.out.println("1) Telas \n" +
+        System.out.println("1) Textiles \n" +
                 "2) Menu principal \n" +
                 "3) Salir \n" );
     }
 
-    private void Choose_Telas_Menu(int option)
+    private void Choose_Textiles_Menu(int option)
     {
         switch (option)
         {
