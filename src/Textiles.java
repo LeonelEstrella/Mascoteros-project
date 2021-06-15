@@ -1,3 +1,4 @@
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ public class Textiles {
     static private Textiles textiles = null;
 
     //Implementacion patron Singleton
-    private  Textiles(){}
+    private Textiles(){}
 
     static public Textiles getTextiles()
     {
@@ -144,24 +145,89 @@ public class Textiles {
         }
     }
 
+    public void Get_Textiles_List(ArrayList<Textiles> lista)
+    {
+        for (Textiles t: lista)
+        {
+            System.out.println("El ID del producto es " + t.Get_ID() + ". El tipo de tela es " + t.Get_Textiles_Type()
+                    + " con color " + t.Get_Textiles_Colour() + " . Su estampa es "+ t.Get_Textiles_Stamp()
+                    + ". El largo actual de la tela es " + t.Get_Textiles_Long() + " metros y su ancho "
+                    + t.Get_Textiles_Width() + " metros. Su peso actual es de " + t.Get_Textiles_Weight() + " kilos.");
+        }
+    }
+
+    public void Show_Searchs()
+    {
+        System.out.println("En que quiere basar su búsqueda? \n" + "1) Tipo \n" + "2) Estampa \n" +
+                "3) Color \n" + "4) Largo \n" + "5) Ancho \n" + "6) Peso" );
+    }
+
+    private String[] Select_Option()
+    {
+        Scanner sc = new Scanner(System.in);
+        int option = sc.nextInt();
+        String options[] = {"Tipo","Estampa","Color","Largo","Ancho","Peso"};
+        String method_List[] = {"Get_Textiles_Type","Get_Textiles_Stamp","Get_Textiles_Colour","Get_Textiles_Long"
+                ,"Get_Textiles_Width","Get_Textiles_Weight"};
+        String final_Option[] = {options[option-1],method_List[option-1]};
+        return final_Option;
+    }
+
+    private void Switch_Choose(String option)
+    {
+        switch (option)
+        {
+            case "Tipo":
+        }
+    }
+    //Intentando usar reflection  para evitar uso de switch
+    public void Find_By() throws Exception {
+        Show_Searchs();
+        String search_Choice[] = Select_Option();
+        Class clazz = Class.forName("Textiles");
+        String method_choice = search_Choice[1];
+        Class classes[] = {String.class};
+        Object ob;
+        ob = clazz.getConstructor().newInstance(null);
+        ob.getClass().getMethod(method_choice).invoke(ob);
+        ArrayList<Textiles> testear= new ArrayList<Textiles>();
+        /*for (Textiles t: this.textiles_list)
+        {
+            if(search_Choice[0].equals(method.invoke(null)))
+            {
+                testear.add(t);
+            }
+        }
+        for (Textiles s: testear)
+        {
+            s.Get_Textiles_List(testear);
+        }*/
+    }
+
 }
 
 
 //tengo que borrar este main
 class main2
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws Exception
     {
         Textiles a =  Textiles.getTextiles();
         a.Set_Textiles_Object();
-        a.Set_Textiles_Object();
-        a.Set_Textiles_Object();
+        //a.Set_Textiles_Object();
         /*ArrayList<Textiles> lista;
         lista = a.Add_Textiles_List(a);
         for(int i=0; i<= lista.size(); i++)
         {
             if(lista[i]. )
         }*/
-        a.Get_Textiles_List();
+        a.Find_By();
+        /*Scanner sc = new Scanner(System.in);
+        int option = sc.nextInt();
+        String options[] = {"Tipo","Estampa","Color","Largo","Ancho","Peso"};
+        String method_List[] = {"Get_Textiles_Type","Get_Textiles_Stamp","Get_Textiles_Colour","Get_Textiles_Long"
+                ,"Get_Textiles_Width","Get_Textiles_Weight"};
+        String final_Option[] = {options[option-1],method_List[option-1]};*/
+
     }
 }
