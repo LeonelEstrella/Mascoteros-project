@@ -9,6 +9,7 @@ public class Textiles {
     private boolean thereAreCloth = false;
     private int ID;
     private ArrayList<Textiles> textiles_list = new ArrayList<Textiles>();
+    private ArrayList<Textiles> list_for_searchs= new ArrayList<Textiles>();
     static private Textiles textiles = null;
 
     //Implementacion patron Singleton
@@ -156,52 +157,113 @@ public class Textiles {
         }
     }
 
+    //Por que factor queremos realizar la busqueda
     public void Show_Searchs()
     {
         System.out.println("En que quiere basar su búsqueda? \n" + "1) Tipo \n" + "2) Estampa \n" +
-                "3) Color \n" + "4) Largo \n" + "5) Ancho \n" + "6) Peso" );
+                "3) Color"/* + "4) Largo \n" + "5) Ancho \n" + "6) Peso"*/ );
+        //Todavia nose si voy a utilizar la busqueda por largo, ancho o peso
     }
 
-    private String[] Select_Option()
+    //Seleccionar la opción para comenzar la búsqueda
+    private String Select_Option()
     {
         Scanner sc = new Scanner(System.in);
         int option = sc.nextInt();
-        String options[] = {"Tipo","Estampa","Color","Largo","Ancho","Peso"};
-        String method_List[] = {"Get_Textiles_Type","Get_Textiles_Stamp","Get_Textiles_Colour","Get_Textiles_Long"
-                ,"Get_Textiles_Width","Get_Textiles_Weight"};
-        String final_Option[] = {options[option-1],method_List[option-1]};
+        String options[] = {"Tipo","Estampa","Color"/*,"Largo","Ancho","Peso"*/};//Por ahora no es necesario la busqueda por largo, ancho o peso
+        /*String method_List[] = {"Get_Textiles_Type","Get_Textiles_Stamp","Get_Textiles_Colour","Get_Textiles_Long"
+                ,"Get_Textiles_Width","Get_Textiles_Weight"};*/
+        String final_Option = options[option-1];
         return final_Option;
     }
 
     private void Switch_Choose(String option)
     {
+        ArrayList<Textiles> list_Filter;
         switch (option)
         {
             case "Tipo":
+                list_Filter = Find_By_Type();
+                Print_Filtered_List(list_Filter);
+                break;
+            case "Estampa":
+                list_Filter = Find_By_Stamp();
+                Print_Filtered_List(list_Filter);
+                break;
+            case "Color":
+                list_Filter = Find_By_Colour();
+                Print_Filtered_List(list_Filter);
+                break;
         }
     }
-    //Intentando usar reflection  para evitar uso de switch
-    public void Find_By() throws Exception {
+
+    public void Find_By(){
         Show_Searchs();
-        String search_Choice[] = Select_Option();
-        Class clazz = Class.forName("Textiles");
-        String method_choice = search_Choice[1];
-        Class classes[] = {String.class};
-        Object ob;
-        ob = clazz.getConstructor().newInstance(null);
-        ob.getClass().getMethod(method_choice).invoke(ob);
-        ArrayList<Textiles> testear= new ArrayList<Textiles>();
-        /*for (Textiles t: this.textiles_list)
+        String search_Choice = Select_Option();
+        Switch_Choose(search_Choice);
+    }
+
+    //Busqueda de textiles por el tipo de tela
+    //Me gustaria buscar la forma de que en un mismo metodo puedo elegir que busqueda voy  a hacer para no repetir estas
+    //lineas tantas veces
+    private ArrayList<Textiles> Find_By_Type()
+    {
+        System.out.println("Que tipo de tela busca?");
+        Scanner sc = new Scanner(System.in);
+        String type_search = sc.nextLine();
+        for (Textiles t: this.textiles_list)
         {
-            if(search_Choice[0].equals(method.invoke(null)))
+            if(t.Get_Textiles_Type().equals(type_search))
             {
-                testear.add(t);
+                list_for_searchs.add(t);
             }
         }
-        for (Textiles s: testear)
+        return list_for_searchs;
+    }
+
+    //Obtener liste de textiles por estampa
+    private ArrayList<Textiles> Find_By_Stamp()
+    {
+        System.out.println("Que tipo de estampado busca?");
+        Scanner sc = new Scanner(System.in);
+        String type_search = sc.nextLine();
+        for (Textiles t: this.textiles_list)
         {
-            s.Get_Textiles_List(testear);
-        }*/
+            if(t.Get_Textiles_Stamp().equals(type_search))
+            {
+                list_for_searchs.add(t);
+            }
+        }
+        return list_for_searchs;
+    }
+
+    //Obtener liste de textiles por color
+    private ArrayList<Textiles> Find_By_Colour()
+    {
+        System.out.println("Que color de tela busca?");
+        Scanner sc = new Scanner(System.in);
+        String type_search = sc.nextLine();
+        for (Textiles t: this.textiles_list)
+        {
+            if(t.Get_Textiles_Colour().equals(type_search))
+            {
+                list_for_searchs.add(t);
+            }
+        }
+        return list_for_searchs;
+    }
+
+    //Separando la parte de imprimir la lista me ahorro repetir un poco de codigo
+    private void Print_Filtered_List(ArrayList<Textiles> list_Filter)
+    {
+        if(list_Filter.size()<1)
+        {
+            System.out.println("No hubo resultados con la búsqueda que realizó");
+        }
+        else
+        {
+                Get_Textiles_List(list_Filter);
+        }
     }
 
 }
@@ -214,7 +276,7 @@ class main2
     {
         Textiles a =  Textiles.getTextiles();
         a.Set_Textiles_Object();
-        //a.Set_Textiles_Object();
+        a.Set_Textiles_Object();
         /*ArrayList<Textiles> lista;
         lista = a.Add_Textiles_List(a);
         for(int i=0; i<= lista.size(); i++)
