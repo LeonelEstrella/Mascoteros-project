@@ -1,4 +1,3 @@
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,6 +10,7 @@ public class Textiles {
     private ArrayList<Textiles> textiles_list = new ArrayList<Textiles>();
     private ArrayList<Textiles> list_for_searchs= new ArrayList<Textiles>();
     static private Textiles textiles = null;
+    private Scanner sc = new Scanner(System.in);
 
     //Implementacion patron Singleton
     private Textiles(){}
@@ -131,10 +131,13 @@ public class Textiles {
         int width = sc.nextInt();
         System.out.print("6) Peso: ");
         int weight = sc.nextInt();
-        Textiles test = new Textiles(type,stamp,colour,Long,width,weight);
-        Add_Textiles_List(test);
+        Textiles textiles = new Textiles(type,stamp,colour,Long,width,weight);
+        Add_Textiles_List(textiles);
     }
 
+    //INICIO SECCIÓN IMPRIMIR LISTA DE TEXTILES O TEXTIL
+
+    //IMPRIMIR LISTA DE TEXTILES GENERAL
     public void Get_Textiles_List(/*ArrayList<Textiles> textiles_list*/)
     {
         for (Textiles t: this.textiles_list)
@@ -146,6 +149,7 @@ public class Textiles {
         }
     }
 
+    //IMPRIMIR LISTA DE TEXTILES LUEGO DE REALIZAR UN FILTRADO
     public void Get_Textiles_List(ArrayList<Textiles> lista)
     {
         for (Textiles t: lista)
@@ -156,6 +160,20 @@ public class Textiles {
                     + t.Get_Textiles_Width() + " metros. Su peso actual es de " + t.Get_Textiles_Weight() + " kilos.");
         }
     }
+
+    //IMPRIMIR UN ÚNICO TEXTIL
+    public void Show_Textil_Selected(Textiles textiles)
+    {
+        System.out.println("El ID del producto es " + textiles.Get_ID() + ". El tipo de tela es " + textiles.Get_Textiles_Type()
+                + " con color " + textiles.Get_Textiles_Colour() + " . Su estampa es "+ textiles.Get_Textiles_Stamp()
+                + ". El largo actual de la tela es " + textiles.Get_Textiles_Long() + " metros y su ancho "
+                + textiles.Get_Textiles_Width() + " metros. Su peso actual es de " + textiles.Get_Textiles_Weight() + " kilos.");
+    }
+
+    //FIN SECCIÓN IMPRIMIR LISTA DE TEXTILES O TEXTIL
+
+
+    //SECCIÓN DE BÚSQUEDAS PERSONALIZADAS
 
     //Por que factor queremos realizar la busqueda
     public void Show_Searchs()
@@ -209,7 +227,7 @@ public class Textiles {
     private ArrayList<Textiles> Find_By_Type()
     {
         System.out.println("Que tipo de tela busca?");
-        Scanner sc = new Scanner(System.in);
+        /*Scanner sc = new Scanner(System.in);*/
         String type_search = sc.nextLine();
         for (Textiles t: this.textiles_list)
         {
@@ -225,7 +243,7 @@ public class Textiles {
     private ArrayList<Textiles> Find_By_Stamp()
     {
         System.out.println("Que tipo de estampado busca?");
-        Scanner sc = new Scanner(System.in);
+        /*Scanner sc = new Scanner(System.in);*/
         String type_search = sc.nextLine();
         for (Textiles t: this.textiles_list)
         {
@@ -241,7 +259,7 @@ public class Textiles {
     private ArrayList<Textiles> Find_By_Colour()
     {
         System.out.println("Que color de tela busca?");
-        Scanner sc = new Scanner(System.in);
+        /*Scanner sc = new Scanner(System.in);*/
         String type_search = sc.nextLine();
         for (Textiles t: this.textiles_list)
         {
@@ -253,6 +271,21 @@ public class Textiles {
         return list_for_searchs;
     }
 
+    public Textiles Find_By_ID(int idChoose)
+    {
+        for (Textiles t: textiles_list)
+        {
+            if(idChoose == t.Get_ID())
+            {
+                return t;
+            }
+        }
+        //NOSE COMO HACER PARA QUE NO ROMPA SI NO ENCUENTRA EL VALOR
+        return null;
+    }
+
+    //FIN SECCION BUSQUEDAS
+
     //Separando la parte de imprimir la lista me ahorro repetir un poco de codigo
     private void Print_Filtered_List(ArrayList<Textiles> list_Filter)
     {
@@ -262,7 +295,75 @@ public class Textiles {
         }
         else
         {
-                Get_Textiles_List(list_Filter);
+            Get_Textiles_List(list_Filter);
+        }
+    }
+
+    //SECCIÓN PARA HACER UPDATES DE LA INFORMACIÓN
+
+    //Que se va a querer modificar segun el ID del producto
+    public int [] Choose_What_Change()
+    {
+        System.out.println("A continuación se imprimirá el listado actual de textiles...");
+        Get_Textiles_List();
+        System.out.println("Seleccione el ID del producto a modificar.");
+        int IDChoose = sc.nextInt();
+        System.out.println("Que desea modificar? \n" + "1) Tipo \n" + "2) Estampa \n" +
+                        "3) Color \n" + "4) Largo \n" + "5)Ancho \n" + "6) Peso");
+        int updateTextiles = sc.nextInt();
+        int intArray[] =new int[]{IDChoose,updateTextiles};
+        return intArray;
+    }
+
+    //SELECCIONADOR DE OPCIONES PARA LAS MODIFICACIONES
+    public void Choose_For_Update(int option,Textiles textiles)
+    {
+        int changeNumber;
+        String change;
+        switch (option)
+        {
+            case 1:
+                System.out.print("Ingrese el tipo de tela que desea que aparezca en el textil: ");
+                sc.nextLine();
+                change = sc.nextLine();
+                textiles.Set_Textiles_Type(change);
+                System.out.println("La modificación fue realizada con éxito");
+                break;
+            case 2:
+                System.out.print("Ingrese el estampado de tela que desea que aparezca en el textil: ");
+                sc.nextLine();
+                change = sc.nextLine();
+                textiles.Set_Textiles_Stamp(change);
+                System.out.println("La modificación fue realizada con éxito");
+                break;
+            case 3:
+                System.out.print("Ingrese el color de tela que desea que aparezca en el textil: ");
+                sc.nextLine();
+                change = sc.nextLine();
+                textiles.Set_Textiles_Colour(change);
+                System.out.println("La modificación fue realizada con éxito");
+                break;
+            case 4:
+                System.out.print("Ingrese el largo de tela que desea que aparezca en el textil: ");
+                sc.nextLine();
+                changeNumber = sc.nextInt();
+                textiles.Set_Textiles_Long(changeNumber);
+                System.out.println("La modificación fue realizada con éxito");
+                break;
+            case 5:
+                System.out.print("Ingrese el ancho de tela que desea que aparezca en el textil: ");
+                sc.nextLine();
+                changeNumber = sc.nextInt();
+                textiles.Set_Textiles_Width(changeNumber);
+                System.out.println("La modificación fue realizada con éxito");
+                break;
+            case 6:
+                System.out.print("Ingrese el peso de tela que desea que aparezca en el textil: ");
+                sc.nextLine();
+                changeNumber = sc.nextInt();
+                textiles.Set_Textiles_Weight(changeNumber);
+                System.out.println("La modificación fue realizada con éxito");
+                break;
         }
     }
 
@@ -277,13 +378,16 @@ class main2
         Textiles a =  Textiles.getTextiles();
         a.Set_Textiles_Object();
         a.Set_Textiles_Object();
+       int sss[] = a.Choose_What_Change();
+       a.Show_Textil_Selected(a.Find_By_ID(sss[0]));
+       a.Choose_For_Update(sss[1],a.Find_By_ID(sss[0]));
         /*ArrayList<Textiles> lista;
         lista = a.Add_Textiles_List(a);
         for(int i=0; i<= lista.size(); i++)
         {
             if(lista[i]. )
         }*/
-        a.Find_By();
+        /*a.Find_By();*/
         /*Scanner sc = new Scanner(System.in);
         int option = sc.nextInt();
         String options[] = {"Tipo","Estampa","Color","Largo","Ancho","Peso"};
