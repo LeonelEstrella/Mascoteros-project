@@ -117,22 +117,29 @@ public class Textiles {
     //Ver si el largo y ancho deberia ser double
     public void Set_Textiles_Object()
     {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Ingrese a continuación la información básica de su textil:");
-        System.out.print("1) Tipo: ");
-        String type = sc.nextLine();
-        System.out.print("2) Estampa: ");
-        String stamp = sc.nextLine();
-        System.out.print("3) Color: ");
-        String colour = sc.nextLine();
-        System.out.print("4) Largo: ");
-        int Long = sc.nextInt();
-        System.out.print("5) Ancho: ");
-        int width = sc.nextInt();
-        System.out.print("6) Peso: ");
-        int weight = sc.nextInt();
-        Textiles textiles = new Textiles(type,stamp,colour,Long,width,weight);
-        Add_Textiles_List(textiles);
+        try {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Ingrese a continuación la información básica de su textil:");
+            System.out.print("1) Tipo: ");
+            String type = sc.nextLine();
+            System.out.print("2) Estampa: ");
+            String stamp = sc.nextLine();
+            System.out.print("3) Color: ");
+            String colour = sc.nextLine();
+            System.out.print("4) Largo: ");
+            int Long = sc.nextInt();
+            System.out.print("5) Ancho: ");
+            int width = sc.nextInt();
+            System.out.print("6) Peso: ");
+            int weight = sc.nextInt();
+            Textiles textiles = new Textiles(type,stamp,colour,Long,width,weight);
+            Add_Textiles_List(textiles);
+        }catch (Exception e)
+        {
+            System.out.println("El formato del valor ingresado no es el correcto, vuelva a ingresar los datos por favor");
+            Set_Textiles_Object();
+        }
+
     }
 
     //INICIO SECCIÓN IMPRIMIR LISTA DE TEXTILES O TEXTIL
@@ -179,8 +186,7 @@ public class Textiles {
     public void Show_Searchs()
     {
         System.out.println("En que quiere basar su búsqueda? \n" + "1) Tipo \n" + "2) Estampa \n" +
-                "3) Color"/* + "4) Largo \n" + "5) Ancho \n" + "6) Peso"*/ );
-        //Todavia nose si voy a utilizar la busqueda por largo, ancho o peso
+                "3) Color");
     }
 
     //Seleccionar la opción para comenzar la búsqueda
@@ -188,9 +194,7 @@ public class Textiles {
     {
         Scanner sc = new Scanner(System.in);
         int option = sc.nextInt();
-        String options[] = {"Tipo","Estampa","Color"/*,"Largo","Ancho","Peso"*/};//Por ahora no es necesario la busqueda por largo, ancho o peso
-        /*String method_List[] = {"Get_Textiles_Type","Get_Textiles_Stamp","Get_Textiles_Colour","Get_Textiles_Long"
-                ,"Get_Textiles_Width","Get_Textiles_Weight"};*/
+        String options[] = {"Tipo","Estampa","Color"};
         String final_Option = options[option-1];
         return final_Option;
     }
@@ -227,7 +231,6 @@ public class Textiles {
     private ArrayList<Textiles> Find_By_Type()
     {
         System.out.println("Que tipo de tela busca?");
-        /*Scanner sc = new Scanner(System.in);*/
         String type_search = sc.nextLine();
         for (Textiles t: this.textiles_list)
         {
@@ -243,7 +246,6 @@ public class Textiles {
     private ArrayList<Textiles> Find_By_Stamp()
     {
         System.out.println("Que tipo de estampado busca?");
-        /*Scanner sc = new Scanner(System.in);*/
         String type_search = sc.nextLine();
         for (Textiles t: this.textiles_list)
         {
@@ -259,7 +261,6 @@ public class Textiles {
     private ArrayList<Textiles> Find_By_Colour()
     {
         System.out.println("Que color de tela busca?");
-        /*Scanner sc = new Scanner(System.in);*/
         String type_search = sc.nextLine();
         for (Textiles t: this.textiles_list)
         {
@@ -364,6 +365,9 @@ public class Textiles {
                 textiles.Set_Textiles_Weight(changeNumber);
                 System.out.println("La modificación fue realizada con éxito");
                 break;
+            default:
+                System.out.println("El múmero ingresado no corresponde con ninguna opción");
+                Choose_What_Change();
         }
     }
 
