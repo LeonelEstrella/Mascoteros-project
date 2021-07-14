@@ -7,8 +7,8 @@ public class Textiles {
     private static int idNext=1;
     private boolean thereAreCloth = false;
     private int ID;
-    private ArrayList<Textiles> textiles_list = new ArrayList<Textiles>();
-    private ArrayList<Textiles> list_for_searchs= new ArrayList<Textiles>();
+    public ArrayList<Textiles> textiles_list = new ArrayList<Textiles>();
+    public ArrayList<Textiles> list_for_searchs= new ArrayList<Textiles>();
     static private Textiles textiles = null;
     private Scanner sc = new Scanner(System.in);
 
