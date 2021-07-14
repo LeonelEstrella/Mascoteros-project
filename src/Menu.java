@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Menu{
     private boolean exit= false;
     public Menu(){}
+    private Textiles textiles = Textiles.getTextiles();
 
     public void Menu_Interact()
     {
@@ -10,6 +11,7 @@ public class Menu{
             Choose_Main_Menu(Select_Option());
     }
 
+    //MOSTRAR MENU PRINCIPAL
     private void Show_First_Menu()
     {
         System.out.println("Ingrese a cual módulo desea ingresar: ");
@@ -20,6 +22,8 @@ public class Menu{
                 "5) Stock \n" +
                 "6) Salir");
     }
+
+    //SELECCIONAR OPCIÓN EN EL MENU PRINCIPAL
     private int  Select_Option()
     {
         try
@@ -37,6 +41,7 @@ public class Menu{
         }
     }
 
+    //METODOS A LOS QUE INGRESARÁ SEGÚN LA OPCIÓN
     private void Choose_Main_Menu(int option)
     {
         while (!exit)
@@ -119,6 +124,7 @@ public class Menu{
         }
     }
 
+    //SECCION MENU DE TEXTILES
     private void Show_Textiles_Menu()
     {
         System.out.println("Ingrese a cual opción desea ingresar: ");
@@ -127,11 +133,48 @@ public class Menu{
                 "3) Salir \n" );
     }
 
+    //SUBMENU DE TEXTILES
+    private void Sub_Menu_Textiles()
+    {
+        System.out.println("Bienvenidos al menú de textiles, que desea realizar?");
+        System.out.println("1) Cargar nuevo textil \n" +
+                "2) Actualizar datos de un textil \n" +
+                "3) Buscar textil \n" + "4) Volver atrás" );
+    }
+
+    //SELECCIÓN DE OPCIÓN SUB MENU TEXTILES
+    private void Choose_Sub_Menu_Textiles(int option)
+    {
+        switch (option)
+        {
+            case 1:
+                textiles.Set_Textiles_Object();
+                System.out.println("Textil cargado correctamente. Volviendo al menú principal...");
+                Show_First_Menu();
+                Choose_Main_Menu(Select_Option());
+                break;
+            case 2:
+                int selection [] = textiles.Choose_What_Change();
+                Textiles textil_selected = textiles.Find_By_ID(selection[0]);
+                textiles.Choose_For_Update(selection[1],textil_selected);
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                System.out.println("El número " + option + " no es una opción válida. Volver a intentar..." );
+                break;
+        }
+    }
+
     private void Choose_Textiles_Menu(int option)
     {
         switch (option)
         {
             case 1:
+                Sub_Menu_Textiles();
+                Choose_Sub_Menu_Textiles(Select_Option());
                 break;
 
             case 2:
