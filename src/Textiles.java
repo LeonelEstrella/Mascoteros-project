@@ -372,32 +372,3 @@ public class Textiles {
     }
 
 }
-
-
-//tengo que borrar este main
-class main2
-{
-    public static void main(String[] args) throws Exception
-    {
-        Textiles a =  Textiles.getTextiles();
-        a.Set_Textiles_Object();
-        a.Set_Textiles_Object();
-       int sss[] = a.Choose_What_Change();
-       a.Show_Textil_Selected(a.Find_By_ID(sss[0]));
-       a.Choose_For_Update(sss[1],a.Find_By_ID(sss[0]));
-        /*ArrayList<Textiles> lista;
-        lista = a.Add_Textiles_List(a);
-        for(int i=0; i<= lista.size(); i++)
-        {
-            if(lista[i]. )
-        }*/
-        /*a.Find_By();*/
-        /*Scanner sc = new Scanner(System.in);
-        int option = sc.nextInt();
-        String options[] = {"Tipo","Estampa","Color","Largo","Ancho","Peso"};
-        String method_List[] = {"Get_Textiles_Type","Get_Textiles_Stamp","Get_Textiles_Colour","Get_Textiles_Long"
-                ,"Get_Textiles_Width","Get_Textiles_Weight"};
-        String final_Option[] = {options[option-1],method_List[option-1]};*/
-
-    }
-}
