@@ -183,14 +183,14 @@ public class Textiles {
     //SECCIÓN DE BÚSQUEDAS PERSONALIZADAS
 
     //Por que factor queremos realizar la busqueda
-    public void Show_Searchs()
+    private void Show_Searchs()
     {
         System.out.println("En que quiere basar su búsqueda? \n" + "1) Tipo \n" + "2) Estampa \n" +
                 "3) Color");
     }
 
     //Seleccionar la opción para comenzar la búsqueda
-    private String Select_Option()
+    public String Select_Option()
     {
         Scanner sc = new Scanner(System.in);
         int option = sc.nextInt();
@@ -303,7 +303,8 @@ public class Textiles {
     //SECCIÓN PARA HACER UPDATES DE LA INFORMACIÓN
 
     //Que se va a querer modificar segun el ID del producto
-    public int [] Choose_What_Change()
+    public int []
+    Choose_What_Change()
     {
         System.out.println("A continuación se imprimirá el listado actual de textiles...");
         Get_Textiles_List();

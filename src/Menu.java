@@ -159,6 +159,8 @@ public class Menu{
                 textiles.Choose_For_Update(selection[1],textil_selected);
                 break;
             case 3:
+                Textiles_Search();
+                Choose_Way_To_Find(Select_Option());
                 break;
             case 4:
                 break;
@@ -191,6 +193,37 @@ public class Menu{
                 break;
         }
     }
+
+    //QUE TIPO DE BUSQUEDA QUEREMOS REALIZAR
+    private void Textiles_Search()
+    {
+        System.out.println("Que tipo de búsqueda desea realizar? \n" + "1)Búsqueda por estampa-tela-color \n"
+                + "2)Mostrar lista total de textiles \n" + "3) Volver al menu anterior");
+    }
+
+    private void Choose_Way_To_Find(int option)
+    {
+        switch (option)
+        {
+            case 1:
+                textiles.Find_By();
+                break;
+            case 2:
+                textiles.Get_Textiles_List();
+                break;
+            case 3:
+                Sub_Menu_Textiles();
+                Choose_Sub_Menu_Textiles(Select_Option());
+                break;
+            default:
+                System.out.println("El número " + option + " no es una opción válida. Volver a intentar...");
+                Choose_Main_Menu(Select_Option());
+                break;
+        }
+    }
+
+
+    //FIN SECCION TEXTILES
 
     private void Show_People_Menu()
     {
