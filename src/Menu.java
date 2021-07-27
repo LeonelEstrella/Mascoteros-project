@@ -154,9 +154,7 @@ public class Menu{
                 Choose_Main_Menu(Select_Option());
                 break;
             case 2:
-                int selection [] = textiles.Choose_What_Change();
-                Textiles textil_selected = textiles.Find_By_ID(selection[0]);
-                textiles.Choose_For_Update(selection[1],textil_selected);
+                textiles.Menu_Textiles_Modify_by_ID();
                 break;
             case 3:
                 Textiles_Search();
@@ -198,7 +196,7 @@ public class Menu{
     private void Textiles_Search()
     {
         System.out.println("Que tipo de búsqueda desea realizar? \n" + "1)Búsqueda por estampa-tela-color \n"
-                + "2)Mostrar lista total de textiles \n" + "3) Volver al menu anterior");
+                + "2)Mostrar lista total de textiles \n" + "3)Buscar un textil por ID "+ "4) Volver al menu anterior");
     }
 
     private void Choose_Way_To_Find(int option)
@@ -212,6 +210,9 @@ public class Menu{
                 textiles.Get_Textiles_List();
                 break;
             case 3:
+                textiles.Menu_Textiles_Show_one_Object();
+                break;
+            case 4:
                 Sub_Menu_Textiles();
                 Choose_Sub_Menu_Textiles(Select_Option());
                 break;

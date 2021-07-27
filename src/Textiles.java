@@ -3,12 +3,12 @@ import java.util.Scanner;
 
 public class Textiles {
     private String type, stamp, colour;
-    private int weight, Long, width;
+    private double weight, Long, width;
     private static int idNext=1;
     private boolean thereAreCloth = false;
     private int ID;
-    public ArrayList<Textiles> textiles_list = new ArrayList<Textiles>();
-    public ArrayList<Textiles> list_for_searchs= new ArrayList<Textiles>();
+    private ArrayList<Textiles> textiles_list = new ArrayList<Textiles>();
+    private ArrayList<Textiles> list_for_searchs= new ArrayList<Textiles>();
     static private Textiles textiles = null;
     private Scanner sc = new Scanner(System.in);
 
@@ -24,8 +24,8 @@ public class Textiles {
         return textiles;
     }
 
-    //Quedaría mejor con un método para construir esto?
-    public Textiles(String type, String stamp,String colour, int Long, int width, int weight)
+    //MÉTODO CONSTRUCTOR DE TEXTILES
+    public Textiles(String type, String stamp,String colour, double Long, double width, double weight)
     {
         this.type = type;
         this.stamp = stamp;
@@ -37,6 +37,8 @@ public class Textiles {
         ID= idNext;
         idNext++;
     }
+
+    //GETTERS Y SETTERS DE TEXTILES
 
     private int Get_ID()
     {
@@ -67,7 +69,7 @@ public class Textiles {
 
     private void Set_Textiles_Colour(String colour){ this.colour = colour;}
 
-    private int Get_Textiles_Long()
+    private double Get_Textiles_Long()
     {
         return Long;
     }
@@ -77,7 +79,7 @@ public class Textiles {
         this.Long = Long;
     }
 
-    private int Get_Textiles_Width()
+    private double Get_Textiles_Width()
     {
         return width;
     }
@@ -87,7 +89,7 @@ public class Textiles {
         this.width = width;
     }
 
-    private int Get_Textiles_Weight()
+    private double Get_Textiles_Weight()
     {
         return weight;
     }
@@ -107,6 +109,10 @@ public class Textiles {
         this.thereAreCloth = thereAreCloth;
     }
 
+    //FIN DE GETTERS Y SETTERS DE TEXTILES
+
+    //AÑADIR UN TEXTIL A LA LISTA DE TEXTILES GENERAL
+
     public ArrayList<Textiles> Add_Textiles_List(Textiles textiles_object)
     {
         textiles_list.add(textiles_object);
@@ -114,7 +120,7 @@ public class Textiles {
         return textiles_list;
     }
 
-    //Ver si el largo y ancho deberia ser double
+    //INGRESAR VALORES PARA CREAR OBJETO TEXTIL
     public void Set_Textiles_Object()
     {
         try {
@@ -127,12 +133,12 @@ public class Textiles {
             System.out.print("3) Color: ");
             String colour = sc.nextLine();
             System.out.print("4) Largo: ");
-            int Long = sc.nextInt();
+            double Long = sc.nextDouble();
             System.out.print("5) Ancho: ");
-            int width = sc.nextInt();
+            double width = sc.nextDouble();
             System.out.print("6) Peso: ");
-            int weight = sc.nextInt();
-            Textiles textiles = new Textiles(type,stamp,colour,Long,width,weight);
+            double weight = sc.nextDouble();
+            Textiles textiles = new Textiles(type,stamp,colour,Long,width,weight); //ACA LE PASAMOS TODA LA INFO AL CONSTRUCTOR
             Add_Textiles_List(textiles);
         }catch (Exception e)
         {
@@ -145,7 +151,7 @@ public class Textiles {
     //INICIO SECCIÓN IMPRIMIR LISTA DE TEXTILES O TEXTIL
 
     //IMPRIMIR LISTA DE TEXTILES GENERAL
-    public void Get_Textiles_List(/*ArrayList<Textiles> textiles_list*/)
+    public void Get_Textiles_List()
     {
         for (Textiles t: this.textiles_list)
         {
@@ -182,15 +188,14 @@ public class Textiles {
 
     //SECCIÓN DE BÚSQUEDAS PERSONALIZADAS
 
-    //Por que factor queremos realizar la busqueda
     private void Show_Searchs()
     {
         System.out.println("En que quiere basar su búsqueda? \n" + "1) Tipo \n" + "2) Estampa \n" +
-                "3) Color");
+                "3) Color"); //EN FUNCIÓN A QUE QUEREMOS REALIZAR LA BÚSQUEDA
     }
 
-    //Seleccionar la opción para comenzar la búsqueda
-    public String Select_Option()
+    //CON ESTE MÉTODO SE ELEGIRA SI LA BÚSQUEDA SERA POR TIPO, ESTAMPA O COLOR Y DEVUELVE UN STRING OCN LA OPCIÓN
+    private String Select_Option()
     {
         Scanner sc = new Scanner(System.in);
         int option = sc.nextInt();
@@ -199,6 +204,7 @@ public class Textiles {
         return final_Option;
     }
 
+    //CON LA OPCIÓN QUE NOS DEVUELVE SELECT_OPTION SE LO PASAMOS A SWITCH_CHOOSE Y EN FUNCIÓN A ESO REALICE LA BÚSQUEDA
     private void Switch_Choose(String option)
     {
         ArrayList<Textiles> list_Filter;
@@ -219,15 +225,7 @@ public class Textiles {
         }
     }
 
-    public void Find_By(){
-        Show_Searchs();
-        String search_Choice = Select_Option();
-        Switch_Choose(search_Choice);
-    }
-
-    //Busqueda de textiles por el tipo de tela
-    //Me gustaria buscar la forma de que en un mismo metodo puedo elegir que busqueda voy  a hacer para no repetir estas
-    //lineas tantas veces
+    //BÚSQUEDAS POR TIPO DE TELA
     private ArrayList<Textiles> Find_By_Type()
     {
         System.out.println("Que tipo de tela busca?");
@@ -242,7 +240,7 @@ public class Textiles {
         return list_for_searchs;
     }
 
-    //Obtener liste de textiles por estampa
+    //BÚSQUEDAS POR ESTAMPA
     private ArrayList<Textiles> Find_By_Stamp()
     {
         System.out.println("Que tipo de estampado busca?");
@@ -257,7 +255,7 @@ public class Textiles {
         return list_for_searchs;
     }
 
-    //Obtener liste de textiles por color
+    //BÚSQUEDAS POR COLOR
     private ArrayList<Textiles> Find_By_Colour()
     {
         System.out.println("Que color de tela busca?");
@@ -272,7 +270,19 @@ public class Textiles {
         return list_for_searchs;
     }
 
-    public Textiles Find_By_ID(int idChoose)
+    //CON ESTE MÉTODO PUBLICO CUANDO VAYAMOS AL MENU A LA SECCIÓN DE BÚSQUEDA REALIZARÁ BÚSQUEDAS POR TIPO UTILIZANDO LOS
+    //MÉTODOS DE ARRIBA (SHOW_SEARCHS, SELECT_OPTION, SWITCH_CHOOSE)
+    public void Find_By(){
+        Show_Searchs();
+        String search_Choice = Select_Option();
+        Switch_Choose(search_Choice);
+        for (int i = 0; i < list_for_searchs.size(); i++) {
+            list_for_searchs.remove(i);
+        }//VACIAR LISTA DE TEXTILES PORQUE NECESITO QUE ESTÉ LIMPIA ANTES DE CADA NUEVA CARGA DE DATOS
+    }
+
+    //REALIZAR BÚSQUEDAS MEDIANTE EL ID, ESTE MÉTODO SE USARÁ PARA HACER LOS UPDATES DE LOS TEXTILES
+    private Textiles Find_By_ID(int idChoose)
     {
         for (Textiles t: textiles_list)
         {
@@ -285,40 +295,25 @@ public class Textiles {
         return null;
     }
 
-    //FIN SECCION BUSQUEDAS
-
-    //Separando la parte de imprimir la lista me ahorro repetir un poco de codigo
-    private void Print_Filtered_List(ArrayList<Textiles> list_Filter)
-    {
-        if(list_Filter.size()<1)
-        {
-            System.out.println("No hubo resultados con la búsqueda que realizó");
-        }
-        else
-        {
-            Get_Textiles_List(list_Filter);
-        }
-    }
-
-    //SECCIÓN PARA HACER UPDATES DE LA INFORMACIÓN
-
-    //Que se va a querer modificar segun el ID del producto
-    public int []
-    Choose_What_Change()
+    //SEGÚN EL ID ELEGIDO SERÁ EL TEXTIL QUE VAMOS A MODIFICAR
+    private int [] Choose_What_Change()
     {
         System.out.println("A continuación se imprimirá el listado actual de textiles...");
         Get_Textiles_List();
         System.out.println("Seleccione el ID del producto a modificar.");
         int IDChoose = sc.nextInt();
         System.out.println("Que desea modificar? \n" + "1) Tipo \n" + "2) Estampa \n" +
-                        "3) Color \n" + "4) Largo \n" + "5)Ancho \n" + "6) Peso");
+                "3) Color \n" + "4) Largo \n" + "5)Ancho \n" + "6) Peso");
         int updateTextiles = sc.nextInt();
         int intArray[] =new int[]{IDChoose,updateTextiles};
         return intArray;
     }
 
+    //SECCIÓN PARA HACER UPDATES DE LA INFORMACIÓN
+
+
     //SELECCIONADOR DE OPCIONES PARA LAS MODIFICACIONES
-    public void Choose_For_Update(int option,Textiles textiles)
+    private void Choose_For_Update(int option,Textiles textiles)
     {
         int changeNumber;
         String change;
@@ -370,6 +365,45 @@ public class Textiles {
                 System.out.println("El múmero ingresado no corresponde con ninguna opción");
                 Choose_What_Change();
         }
+    }
+
+    //SELECCIONAR USANDO INT
+    private int Select_Option_int()
+    {
+        return sc.nextInt();
+    }
+
+    //IMPRIMIR LA LISTA DE TEXTILES SEGÚN EL FILTRO PREVIO QUE SE LE HAYA APLICADO
+    private void Print_Filtered_List(ArrayList<Textiles> list_Filter)
+    {
+        if(list_Filter.size()<1)
+        {
+            System.out.println("No hubo resultados con la búsqueda que realizó");
+        }
+        else
+        {
+            Get_Textiles_List(list_Filter);
+        }
+    }
+
+    //MÉTODO PARA EL MENU PARA TENER UN SOLO MÉTODO PUBLIC QUE HAGA LO RELACIONADO A MOSTRAR UN ÚNICO OBJETO TEXTIL
+    public void Menu_Textiles_Show_one_Object()
+    {
+        System.out.println("Seleccione mediante el ID cual es el textiles que desea ver: ");
+        Get_Textiles_List();
+        Show_Textil_Selected(Find_By_ID(Select_Option_int()));
+    }
+
+    //MÉTODO PARA MODIFICAR ID QUE USARÁ EL MENÚ
+    public void Menu_Textiles_Modify_by_ID()
+    {
+        for (int i = 0; i < list_for_searchs.size(); i++) {
+            list_for_searchs.remove(i);
+        }
+        int selection [] = Choose_What_Change();
+        Textiles textil_selected = Find_By_ID(selection[0]);
+        Choose_For_Update(selection[1],textil_selected);
+
     }
 
 }
